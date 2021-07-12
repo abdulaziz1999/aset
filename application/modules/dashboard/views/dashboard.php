@@ -1,4 +1,4 @@
-    <div class="header bg-primary pb-6">
+    <div class="header bg-success pb-6">
       <div class="container-fluid">
         <div class="header-body">
           <div class="row align-items-center py-4">
@@ -24,8 +24,8 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Total Mahasiswa</h5>
-                      <span class="h2 font-weight-bold mb-0"><?= $mahasiswa?></span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Total Aset</h5>
+                      <span class="h2 font-weight-bold mb-0">99</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
@@ -46,8 +46,8 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Total Dosen</h5>
-                      <span class="h2 font-weight-bold mb-0"><?= $dosen?></span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Aset Tanah</h5>
+                      <span class="h2 font-weight-bold mb-0">99</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
@@ -68,8 +68,8 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Total Seminar</h5>
-                      <span class="h2 font-weight-bold mb-0"><?= $seminar?></span>
+                      <h5 class="card-title text-uppercase text-muted mb-0"> Kendaraan</h5>
+                      <span class="h2 font-weight-bold mb-0">89</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
@@ -90,8 +90,8 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Total Peserta</h5>
-                      <span class="h2 font-weight-bold mb-0"><?= $peserta?></span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Aset Gedung</h5>
+                      <span class="h2 font-weight-bold mb-0">99</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">

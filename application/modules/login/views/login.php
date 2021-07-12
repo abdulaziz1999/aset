@@ -1,12 +1,12 @@
 <div class="main-content">
     <!-- Header -->
-    <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
+    <div class="header bg-gradient-success py-7 py-lg-8 pt-lg-9">
       <div class="container">
         <div class="header-body text-center mb-4">
           <div class="row justify-content-center">
             <div class="col-xl-8 col-lg-6 col-md-8 px-5">
               <h1 class="text-white">Welcome!</h1>
-              <h2 class="display-4 text-white font-weight-bold">Sistem Informasi Seminar Tugas Akhir</h2>
+              <h2 class="display-4 text-white font-weight-bold">Sistem Aset Terpadu</h2>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@
                   </label>
                 </div>
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary my-4">Sign in</button>
+                  <button type="submit" class="btn btn-success my-4">Login</button>
                 </div>
               </form>
             </div>

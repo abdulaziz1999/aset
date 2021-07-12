@@ -1,0 +1,39 @@
+Aset Tanah :
+Nama pemilik
+pemilik sebelum
+jenis dokumen kepemilikan
+no surat
+luas tanah
+thn pembelian
+harga pembelian
+lokasi
+batas tanah
+NIB
+nomor persil
+nomor kohir 
+notaris / PPAT
+nomor SPPT
+upload kwitansi
+upload SHM
+upload SPPT/Pajak
+upload AJB dan dokumen lain
+Pembelian dalam pelunasan (lunas/belum)
+
+Aset Terdepersiasi :
+Nama Aset
+Spek/Merk
+Thn pembelian
+harga beli
+Usia depersiasi  
+nilai saat ini => harga beli - (thn now - thn beli / Usia depersiasi X harga beli) 
+lokasi atau unit pengguna
+Status kepemilikan (BOS/Yayasan/Wakaf)
+upload kwitansi
+uplaod dokumen kepemilikan
+upload Pajak
+Kode Akutansi
+
+dashboard :
+Nilai aset depersiasi
+Jumlah luas tanah
+Nilai Aset tanah => jml harga beli

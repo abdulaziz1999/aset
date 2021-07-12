@@ -80,7 +80,7 @@
                 <span class="nav-link-text">Dashboards</span>
               </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link <?= $this->uri->segment(1) == 'dosen' || $this->uri->segment(1) == 'prodi' || $this->uri->segment(1) == 'mahasiswa' ? 'active' : ''?>" href="#navbar-tables" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-tables">
                 <i class="ni ni-align-left-2 text-default"></i>
                 <span class="nav-link-text">Master Data</span>
@@ -98,11 +98,17 @@
                   </li>
                 </ul>
               </div>
+            </li> -->
+            <li class="nav-item">
+              <a class="nav-link <?= $this->uri->segment(1) == 'aset' ? 'active' : ''?>" href="<?= base_url('aset')?>">
+                <i class="ni ni-archive-2 text-green"></i>
+                <span class="nav-link-text">Aset Tanah</span>
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link <?= $this->uri->segment(1) == 'df_seminar' ? 'active' : ''?>" href="<?= base_url('df_seminar')?>">
+              <a class="nav-link <?= $this->uri->segment(1) == 'aset_dep' ? 'active' : ''?>" href="<?= base_url('aset_dep')?>">
                 <i class="ni ni-archive-2 text-green"></i>
-                <span class="nav-link-text">Daftar Seminar</span>
+                <span class="nav-link-text">Aset Depersiasi</span>
               </a>
             </li>
             <li class="nav-item">
@@ -156,11 +162,11 @@
   <!-- Main content -->
   <div class="main-content" id="panel">
     <!-- Topnav -->
-    <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
+    <nav class="navbar navbar-top navbar-expand navbar-dark bg-success border-bottom">
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Search form -->
-          <marquee behavior="alternate" direction="right"><h1 class="display-4 text-white font-weight-bold">Sistem Informasi Seminar Tugas Akhir</h1></marquee>
+          <marquee behavior="alternate" direction="right"><h1 class="display-4 text-white font-weight-bold">Sistem Data Aset Terpadu</h1></marquee>
           <!-- Navbar links -->
           <ul class="navbar-nav align-items-center ml-md-auto">
             <li class="nav-item d-xl-none">
@@ -180,7 +186,7 @@
               <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="media align-items-center">
                   <span class="avatar avatar-sm rounded-circle">
-                    <img alt="Image placeholder" src="<?= base_url()?>assets/img/theme/team-4.jpg">
+                    <img alt="Image placeholder" src="<?= base_url()?>assets/img/theme/team-1.jpg">
                   </span>
                   <div class="media-body ml-2 d-none d-lg-block">
                     <span class="mb-0 text-sm  font-weight-bold"><?= $this->session->userdata('nama')?></span>
@@ -195,20 +201,8 @@
                   <i class="ni ni-single-02"></i>
                   <span>My profile</span>
                 </a>
-                <a href="#!" class="dropdown-item">
-                  <i class="ni ni-settings-gear-65"></i>
-                  <span>Settings</span>
-                </a>
-                <a href="#!" class="dropdown-item">
-                  <i class="ni ni-calendar-grid-58"></i>
-                  <span>Activity</span>
-                </a>
-                <a href="#!" class="dropdown-item">
-                  <i class="ni ni-support-16"></i>
-                  <span>Support</span>
-                </a>
                 <div class="dropdown-divider"></div>
-                <a href="#!" class="dropdown-item">
+                <a href="<?= base_url('login/logout')?>" class="dropdown-item">
                   <i class="ni ni-user-run"></i>
                   <span>Logout</span>
                 </a>
@@ -304,9 +298,32 @@
       </script>
     <?php endif;?>
 
-    <?php if($this->uri->segment(2) == ''):?>
+    <?php if($this->uri->segment(1) == 'user'):?>
       <script>
-        
+        function showUserEdit(id){
+                    $.ajax({
+                        url: "<?=site_url('user/dataEdit');?>",
+                        type: "POST",
+                        data: {id: id},
+                        dataType: "html",
+                        beforeSend:function(){
+                        $('#data_edit').html("<img style='margin-left:240px' src='<?=base_url()?>assets/img/icons/loader.gif'>");
+                  },
+                        success: function (response) {
+                            $('#data_edit').empty();
+                            $('#data_edit').append(response);
+                        }
+                    });
+                }
+          function deleteUser(id){
+                      r = confirm("Anda Yakin Ingin Menghapus");
+                      if (r == true) {
+                        window.location="<?=site_url('user/delete/')?>"+id;
+                      } else {
+                        return false;
+                      }
+                      
+                }
       </script>
     <?php endif;?>
 
