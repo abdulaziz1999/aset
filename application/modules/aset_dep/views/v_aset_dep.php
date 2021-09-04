@@ -52,7 +52,7 @@
                       <td><?= $row->thn_pembelian?></td>
                       <td><?= $row->harga_beli?></td>
                       <td><?= $row->usia_depersiasi?></td>
-                      <td><?= $row->nilai_now?></td>
+                      <td><?= $nilai_now = $row->harga_beli-(date('Y')-$row->thn_pembelian/$row->usia_depersiasi*$row->harga_beli)?></td>
                       <td><?= $row->lokasi_unit_user?></td>
                       <td><?= $row->status_kepemilikan?></td>
                       <td><?= $row->u_kwitansi?></td>
@@ -81,7 +81,7 @@
 
       <!-- Modal Tambah -->
       <div class="modal fade" id="tambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Form Peserta Seminar Tugas Akhir</h5>
@@ -179,7 +179,12 @@
                                     <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                     </div>
-                                    <input class="form-control" name="status_kepemilikan" placeholder="Status Kepemilikan" type="text">
+                                    <select name="status_kepemilikan" class="form-control">
+                                      <option disabled selected> --- Pilih Status --- </option>
+                                      <option value="BOS">BOS</option>
+                                      <option value="Yayasan">Yayasan</option>
+                                      <option value="Wakaf">Wakaf</option>
+                                    </select>
                                 </div>
                             </div>
                           </div>

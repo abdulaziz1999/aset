@@ -26,8 +26,8 @@
               <a href="<?= base_url('aset/excel')?>" class="btn btn-sm btn-success" ><i class="ni ni-single-copy-04"></i> Export Excel</a>
             </div>
             <div class="table-responsive py-4">
-              <table class="table table-flush" id="datatable-buttons">
-                <thead class="thead-light">
+              <table class="table align-items-center table-dark table-flush" id="datatable-buttons">
+                <thead class="thead-dark">
                   <tr>
                     <th>No</th>
                     <th>Nama Pemilik</th>
