@@ -8,6 +8,7 @@ class Aset_dep extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->load->library('upload');
         if($this->session->userdata('level') != "admin"){
           redirect('login');
         }		
@@ -186,13 +187,89 @@ class Aset_dep extends CI_Controller
           'nilai_now'         => $this->input->post('nilai_now'),
           'lokasi_unit_user'  => $this->input->post('lokasi_unit_user'),
           'status_kepemilikan'=> $this->input->post('status_kepemilikan'),
-          'u_kwitansi'        => $this->input->post('u_kwitansi'),
-          'u_doc_milik'       => $this->input->post('u_doc_milik'),
-          'u_pajak'           => $this->input->post('u_pajak'),
           'kode_akutansi'     => $this->input->post('kode_akutansi'),
         ];
         $this->db->insert('tb_aset_depersiasi',$data);
-        redirect($_SERVER['HTTP_REFERER']);
+        $lastid = $this->db->insert_id();
+
+        $config['upload_path'] 			= './assets/img/file/'; 
+        $config['allowed_types'] 		= 'gif|jpg|png|jpeg|bmp|pdf'; 
+        $config['encrypt_name'] 		= false;
+        
+          $this->upload->initialize($config);
+          if (!$this->upload->do_upload('u_kwitansi')){
+            $error = array('error' => $this->upload->display_errors());
+            $this->session->set_flashdata('error', "File Invoice Gagal Diupdate");
+            redirect($_SERVER['HTTP_REFERER']);
+          }else{
+            $gbr = $this->upload->data();
+            $data1 = array(
+              'nama_file'     => $gbr['file_name'],
+              'aset_tanah_id' => $lastid,
+              'jenis_file'    => 'kwitansi'
+            );
+            $this->db->insert('tb_file_aset',$data1);
+
+                if($this->db->affected_rows() > 0){
+                  $this->session->set_flashdata('sukses', "File Invoice Berhasil Diupdate");
+                  redirect($_SERVER['HTTP_REFERER']);
+                }else{
+                  $this->session->set_flashdata('error', "File Invoice Gagal Diupdate");
+                  redirect($_SERVER['HTTP_REFERER']);
+                }
+          }
+
+          $config['upload_path'] 			= './assets/img/file/'; 
+          $config['allowed_types'] 		= 'gif|jpg|png|jpeg|bmp|pdf'; 
+          $config['encrypt_name'] 		= false;
+          $this->upload->initialize($config);
+          if (!$this->upload->do_upload('u_doc_milik')){
+            $error = array('error' => $this->upload->display_errors());
+            $this->session->set_flashdata('error', "File Invoice Gagal Diupdate");
+            redirect($_SERVER['HTTP_REFERER']);
+          }else{
+            $gbr = $this->upload->data();
+            $data2 = array(
+              'nama_file'     => $gbr['file_name'],
+              'aset_tanah_id' => $lastid,
+              'jenis_file'    => 'doc_milik'
+            );
+            $this->db->insert('tb_file_aset',$data2);
+
+                if($this->db->affected_rows() > 0){
+                  $this->session->set_flashdata('sukses', "File Invoice Berhasil Diupdate");
+                  redirect($_SERVER['HTTP_REFERER']);
+                }else{
+                  $this->session->set_flashdata('error', "File Invoice Gagal Diupdate");
+                  redirect($_SERVER['HTTP_REFERER']);
+                }
+          }
+          
+          $config['upload_path'] 			= './assets/img/file/'; 
+          $config['allowed_types'] 		= 'gif|jpg|png|jpeg|bmp|pdf'; 
+          $config['encrypt_name'] 		= false;
+          if (!$this->upload->do_upload('u_pajak')){
+            $error = array('error' => $this->upload->display_errors());
+            $this->session->set_flashdata('error', "File Invoice Gagal Diupdate");
+            redirect($_SERVER['HTTP_REFERER']);
+          }else{
+            $gbr = $this->upload->data();
+            $data3 = array(
+              'nama_file'     => $gbr['file_name'],
+              'aset_tanah_id' => $lastid,
+              'jenis_file'    => 'pajak'
+            );
+            $this->db->insert('tb_file_aset',$data3);
+
+                if($this->db->affected_rows() > 0){
+                  $this->session->set_flashdata('sukses', "File Invoice Berhasil Diupdate");
+                  redirect($_SERVER['HTTP_REFERER']);
+                }else{
+                  $this->session->set_flashdata('error', "File Invoice Gagal Diupdate");
+                  redirect($_SERVER['HTTP_REFERER']);
+                }
+          }
+
     }
 
     function update($id){
@@ -217,6 +294,37 @@ class Aset_dep extends CI_Controller
     function delete($id){
         $this->db->delete('tb_aset_depersiasi',['id_aset_d' => $id]);
         redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    function upload_file(){
+          $config['upload_path'] 			= './assets/img/file/'; 
+          $config['allowed_types'] 		= 'gif|jpg|png|jpeg|bmp|pdf'; 
+          $config['encrypt_name'] 		= false;
+          $config['max_size']         = 10000;
+          $config['max_width']        = 10240;
+          $config['max_height']       = 76800;
+  
+        $this->upload->initialize($config);
+          if (!$this->upload->do_upload('invoice')){
+            $error = array('error' => $this->upload->display_errors());
+            $this->session->set_flashdata('error', "File Invoice Gagal Diupdate");
+            redirect($_SERVER['HTTP_REFERER']);
+          }else{
+            $gbr = $this->upload->data();
+            $data = array(
+              'nama_file'     => $gbr['file_name'],
+              'pengajuan_id' 	=> $id 
+            );
+            $this->db->insert('tb_file_aset',$data);
+
+                if($this->db->affected_rows() > 0){
+                  $this->session->set_flashdata('sukses', "File Invoice Berhasil Diupdate");
+                  redirect($_SERVER['HTTP_REFERER']);
+                }else{
+                  $this->session->set_flashdata('error', "File Invoice Gagal Diupdate");
+                  redirect($_SERVER['HTTP_REFERER']);
+                }
+          }
     }
 
     function viewPerserta($id){

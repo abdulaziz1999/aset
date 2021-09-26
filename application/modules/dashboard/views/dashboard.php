@@ -25,7 +25,7 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Total Aset</h5>
-                      <span class="h2 font-weight-bold mb-0">99</span>
+                      <span class="h2 font-weight-bold mb-0"><?= $jml_aset_tanah+$jml_aset_dep?></span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
@@ -47,7 +47,7 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Aset Tanah</h5>
-                      <span class="h2 font-weight-bold mb-0">99</span>
+                      <span class="h2 font-weight-bold mb-0"><?= $jml_aset_tanah?></span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
@@ -68,8 +68,8 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0"> Kendaraan</h5>
-                      <span class="h2 font-weight-bold mb-0">89</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Aset Depersiasi</h5>
+                      <span class="h2 font-weight-bold mb-0"><?= $jml_aset_dep?></span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
@@ -90,8 +90,8 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Aset Gedung</h5>
-                      <span class="h2 font-weight-bold mb-0">99</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">File Asset</h5>
+                      <span class="h2 font-weight-bold mb-0"><?= $jml_document?></span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
@@ -113,48 +113,37 @@
 
     <div class="container-fluid mt--6">
       <div class="row">
-        <div class="col-xl-12">
-          <div class="card bg-default">
-            <div class="card-header bg-transparent">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h6 class="text-light text-uppercase ls-1 mb-1">Overview</h6>
-                  <h5 class="h3 text-white mb-0">Sales value</h5>
+                <div class="col-md-6">
+                  <div class="card">
+                      <div class="card-header">
+                        <h5 class="h3 mb-0">Pie chart</h5>
+                      </div>
+                      <div class="card-body">
+                        <div class="chart">
+                          <canvas id="chart-pie" class="chart-canvas"></canvas>
+                        </div>
+                      </div>
+                  </div>
                 </div>
-                <div class="col">
-                  <ul class="nav nav-pills justify-content-end">
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales-dark" data-update='{"data":{"datasets":[{"data":[0, 20, 10, 30, 15, 40, 20, 60, 60]}]}}' data-prefix="$" data-suffix="k">
-                      <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                        <span class="d-none d-md-block">Month</span>
-                        <span class="d-md-none">M</span>
-                      </a>
-                    </li>
-                    <li class="nav-item" data-toggle="chart" data-target="#chart-sales-dark" data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}' data-prefix="$" data-suffix="k">
-                      <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                        <span class="d-none d-md-block">Week</span>
-                        <span class="d-md-none">W</span>
-                      </a>
-                    </li>
-                  </ul>
+                <div class="col-md-6">
+                  <div class="card">
+                      <div class="card-header">
+                        <h5 class="h3 mb-0">Pie chart</h5>
+                      </div>
+                      <div class="card-body">
+                      <div class="chart">
+                        <canvas id="chart-doughnut" class="chart-canvas"></canvas>
+                      </div>
+                      </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <!-- Chart -->
-              <div class="chart">
-                <!-- Chart wrapper -->
-                <canvas id="chart-sales-dark" class="chart-canvas"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
       <!-- Footer -->
       <footer class="footer pt-0">
         <div class="row align-items-center justify-content-lg-between">
           <div class="col-lg-6">
             <div class="copyright text-center text-lg-left text-muted">
-              &copy; 2019 <a href="https://www.creative-tim.com/" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+              &copy; <?= date('Y');?> <a href="https://www.creative-tim.com/" class="font-weight-bold ml-1" target="_blank">DQM</a>
             </div>
           </div>
           <div class="col-lg-6">

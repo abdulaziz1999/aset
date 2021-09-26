@@ -177,6 +177,42 @@
       </div>
     </div>
   </footer>
+
+  <!-- notif email dan password tidak sesuai -->
+  <div class="modal fade" id="notif" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+        <div class="modal-content bg-gradient-danger">
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-title-notification">Your attention is required</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="py-3 text-center">
+                    <i class="ni ni-bell-55 ni-3x"></i>
+                    <h4 class="heading mt-4">Nomor dan Password Tidak Sesuai Silahkan Coba Lagi!</h4>
+                </div>
+            </div>            
+        </div>
+    </div>  
+
+ <!-- Notif  register Berhasil  -->
+ <div class="modal fade" id="sukses" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+        <div class="modal-content bg-gradient-success">
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-title-notification">Your attention is required</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="py-3 text-center">
+                    <i class="ni ni-bell-55 ni-3x"></i>
+                    <h4 class="heading mt-4">Create Account Berhasil !</h4>
+                </div>
+            </div>            
+        </div>
+    </div>
   <!-- Argon Scripts -->
   <!-- Core -->
   <script src="<?= base_url()?>assets/vendor/jquery/dist/jquery.min.js"></script>
@@ -188,7 +224,26 @@
   <script src="<?= base_url()?>assets/js/argon.min9f1e.js?v=1.1.0"></script>
   <!-- Demo JS - remove this in your project -->
   <script src="<?= base_url()?>assets/js/demo.min.js"></script>
-  
+  <?php 
+      $data1=$this->session->flashdata('error');
+      if($data1!=""){?>
+      <script>
+        $('#notif').modal('show');
+        setTimeout(function(){ 
+            $("#notif").fadeOut("slow").modal("hide"); 
+        }, 3000 );
+      </script>
+      <?php } ?>
+
+      <script type="text/javascript">	
+        $('.custom-control-input').click(function(){
+          if($(this).is(':checked')){
+            $('#pas').attr('type','text');
+          }else{
+            $('#pas').attr('type','password');
+          }
+        });
+    </script>
 </body>
 
 </html>

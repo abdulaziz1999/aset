@@ -30,7 +30,7 @@
                   <tr>
                     <th>No</th>
                     <th>Nama Aset</th>
-                    <th>Spek/Merk</th>
+                    <!-- <th>Spek/Merk</th> -->
                     <th>Tahun Pembelian</th>
                     <th>Harga Beli</th>
                     <th>Usia Depersiasi</th>
@@ -41,6 +41,7 @@
                     <th>Upload Pajak</th>
                     <th>Upload SPPT/Pajak</th>
                     <th>Kode Akutansi</th>
+                    <th>ACT</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -48,28 +49,28 @@
                     <tr>
                       <td><?= $no++?></td>
                       <td><?= $row->nm_aset?></td>
-                      <td><?= $row->spek_merk?></td>
+                      <!-- <td><?= $row->spek_merk?></td> -->
                       <td><?= $row->thn_pembelian?></td>
                       <td><?= $row->harga_beli?></td>
                       <td><?= $row->usia_depersiasi?></td>
-                      <td><?= $nilai_now = $row->harga_beli-(date('Y')-$row->thn_pembelian/$row->usia_depersiasi*$row->harga_beli)?></td>
+                      <td><?= $row->nilai_now?></td>
                       <td><?= $row->lokasi_unit_user?></td>
                       <td><?= $row->status_kepemilikan?></td>
                       <td><?= $row->u_kwitansi?></td>
                       <td><?= $row->u_doc_milik?></td>
                       <td><?= $row->u_pajak?></td>
                       <td><?= $row->kode_akutansi?></td>
-                    <!--<td>
+                    <!-- <td>
                         <a href="" class="btn btn-sm btn-warning ml-1">
                           <i class="fas fa-eye"></i>&nbsp;  <span>View</span>
                           <span class="badge badge-md badge-circle badge-floating badge-danger border-white"></span>
                         </a>
-                      </td>
+                      </td> -->
                       <td>
                           <button type="button" class="btn btn-sm btn-success ml-1" data-toggle="modal" data-target="#edit" onclick="showDataEdit()"><i class="ni ni-ruler-pencil"></i>&nbsp; Edit</button>
                           <button type="button" class="btn btn-sm btn-danger ml-1" onclick="deleteSeminar()"><i class="fas fa-trash"></i>&nbsp; Delete</button>
                       </td>
-                    </tr> -->
+                    </tr>
                   <?php endforeach;?>
                 </tbody>
               </table>
@@ -84,7 +85,7 @@
         <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Form Peserta Seminar Tugas Akhir</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Form Asset Depersiasi</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -92,7 +93,7 @@
             <div class="modal-body">
               <div class="card">
                   <div class="card-body">
-                    <form method="POST" action="<?= base_url('df_seminar/createPeserta')?>">
+                    <form method="POST" action="<?= base_url('aset_dep/create')?>" enctype="multipart/form-data">
                           <!-- Input groups with icon -->
                           <div class="row">
                           <div class="col-md-6">
@@ -102,7 +103,7 @@
                                   <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                   </div>
-                                  <input class="form-control" name="nm_aset" placeholder="Nama Aset" type="text">
+                                  <input class="form-control" autocomplete="off" name="nm_aset" placeholder="Nama Aset" type="text">
                                 </div>
                               </div>
                             </div> 
@@ -113,7 +114,7 @@
                                   <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                   </div>
-                                  <input class="form-control" name="spek_merk" placeholder="Spek atau merk" type="text">
+                                  <input class="form-control" autocomplete="off" name="spek_merk" placeholder="Spek atau merk" type="text">
                                 </div>
                               </div>
                             </div> 
@@ -124,7 +125,7 @@
                                   <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                   </div>
-                                  <input class="form-control" name="thn_pembelian" placeholder="Tahun Pembelian" type="text">
+                                  <input class="form-control" autocomplete="off" name="thn_pembelian" placeholder="Tahun Pembelian" type="text">
                                 </div>
                               </div>
                             </div> 
@@ -135,7 +136,7 @@
                                       <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                       </div>
-                                      <input class="form-control" name="harga_beli" placeholder="Harga Beli" type="text">
+                                      <input class="form-control" autocomplete="off" name="harga_beli" placeholder="Harga Beli" type="text">
                                   </div>
                               </div>
                             </div>
@@ -146,7 +147,7 @@
                                       <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                       </div>
-                                      <input class="form-control" name="usia_depersiasi" placeholder="Usia Depersiasi" type="number">
+                                      <input class="form-control" autocomplete="off" name="usia_depersiasi" placeholder="Usia Depersiasi" type="number">
                                   </div>
                               </div>
                             </div>
@@ -157,7 +158,7 @@
                                       <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                       </div>
-                                      <input class="form-control" name="nilai_now" placeholder="Nilai Sekarang" type="text">
+                                      <input class="form-control" autocomplete="off" name="nilai_now" placeholder="Nilai Sekarang" type="text">
                                   </div>
                               </div>
                             </div>
@@ -168,7 +169,7 @@
                                       <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                       </div>
-                                      <input class="form-control" name="lokasi_unit_user" placeholder="Lokasi Unit / Pengguna" type="number">
+                                      <input class="form-control" autocomplete="off" name="lokasi_unit_user" placeholder="Lokasi Unit / Pengguna" type="number">
                                   </div>
                               </div>
                             </div>
@@ -195,7 +196,7 @@
                                       <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                       </div>
-                                      <input class="form-control" name="u_kwitansi" placeholder="Upload Kwitansi" type="file">
+                                      <input class="form-control" autocomplete="off" name="u_kwitansi" placeholder="Upload Kwitansi" type="file">
                                   </div>
                               </div>
                             </div>
@@ -206,7 +207,7 @@
                                       <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                       </div>
-                                      <input class="form-control" name="u_doc_milik" placeholder="Upload Kepemilikan" type="file">
+                                      <input class="form-control" autocomplete="off" name="u_doc_milik" placeholder="Upload Kepemilikan" type="file">
                                   </div>
                               </div>
                             </div>
@@ -217,7 +218,7 @@
                                       <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="fas fa-file"></i></span>
                                       </div>
-                                      <input class="form-control" name="u_pajak" placeholder="Upload Pajak" type="file">
+                                      <input class="form-control" autocomplete="off" name="u_pajak" placeholder="Upload Pajak" type="file">
                                   </div>
                               </div>
                             </div> 
@@ -228,7 +229,7 @@
                                       <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="fas fa-list"></i></span>
                                       </div>
-                                      <input class="form-control" name="kode_akutansi" placeholder="Kode Akutansi" type="text">
+                                      <input class="form-control" autocomplete="off" name="kode_akutansi" placeholder="Kode Akutansi" type="text">
                                   </div>
                               </div>
                             </div>
@@ -247,8 +248,56 @@
         </div>
       </div>
 
+      <div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Form Edit Daftar Seminar Tugas Akhir</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          <form action="<?= base_url('aset_dep/upload_file ')?>" method="post" enctype="multipart/form-data">
+            <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Upload Invoice</label>
+                                <input type="file" class="form-control" name="invoice" value="" id="masking1"
+                                    placeholder="Masukan Dana Yang di Ajukan" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                            <button class="btn btn-danger" data-bs-dismiss="modal">Kembali</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button class="btn btn-primary" type="submit">Simpan</button>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+        </form>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Modal edit -->
-    <!-- <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -264,7 +313,7 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
 
     

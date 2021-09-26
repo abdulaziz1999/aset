@@ -50,4 +50,14 @@ Class My_model extends CI_Model{
         return $data; 
         }
 
+        function pembulatan($uang)
+        {
+        $ratusan = substr($uang, -3);
+        if($ratusan<500)
+        $akhir = $uang - $ratusan;
+        else
+        $akhir = $uang + (1000-$ratusan);
+        echo number_format($akhir, 2, ',', '.');;
+        }
+
 }

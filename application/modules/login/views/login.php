@@ -26,7 +26,7 @@
               <h1 class="text-center ">Login</h1>
             </div>
             <div class="card-body px-lg-5 py-lg-5">
-              <form role="form" method="POST" action="<?= site_url('login/cekLogin')?>">
+              <form role="form" method="POST" action="<?= site_url('login/cek_login')?>">
                 <div class="form-group mb-3">
                   <div class="input-group input-group-merge input-group-alternative">
                     <div class="input-group-prepend">
@@ -40,13 +40,13 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input class="form-control" name="password" placeholder="Password" type="password">
+                    <input class="form-control" id="pas" name="password" placeholder="Password" type="password">
                   </div>
                 </div>
                 <div class="custom-control custom-control-alternative custom-checkbox">
                   <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
                   <label class="custom-control-label" for=" customCheckLogin">
-                    <span class="text-muted">Remember me</span>
+                    <span class="text-muted">Show Password</span>
                   </label>
                 </div>
                 <div class="text-center">

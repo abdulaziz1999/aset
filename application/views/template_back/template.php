@@ -55,7 +55,7 @@
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header d-flex align-items-center">
-        <a class="navbar-brand" href="dashboard.html">
+        <a class="navbar-brand" href="<?= base_url('dashboard')?>">
           <img src="<?= base_url()?>assets/img/brand/blue.png" class="navbar-brand-img" alt="...">
         </a>
         <div class="ml-auto">
@@ -241,8 +241,20 @@
   <script src="<?= base_url()?>assets/js/argon.min9f1e.js?v=1.1.0"></script>
   <!-- Demo JS - remove this in your project -->
   <script src="<?= base_url()?>assets/js/demo.min.js"></script>
+    <script>
+    //    $('#datatable-basic1').DataTable( {
+    //     scrollY:        '50vh',
+    //     scrollX: true,
+    //     scrollCollapse: true,
+    //     paging:         false,
+    //     dom: "Bfrtip",
+    //     fixedColumns: {
+    //         leftColumns: 2
+    //     },
+    // } );
+    </script>
 
-  <?php if($this->uri->segment(1) == 'df_seminar'):?>
+    <?php if($this->uri->segment(1) == 'df_seminar'):?>
       <script>
         function showDataEdit(id) 
                 {
