@@ -100,9 +100,9 @@
                                 <td><?= $row->status_pembelian == 'Lunas' ? '<span class="badge badge-lg badge-success">Lunas</span>' : '<span class="badge badge-lg badge-danger">Belum</span>' ?>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-success ml-1" data-toggle="modal"data-target="#edit" onclick="showDataEdit()"><i class="ni ni-ruler-pencil"></i>&nbsp; Edit</button>
-                                    <button type="button" class="btn btn-sm btn-danger ml-1"
-                                        onclick="deleteSeminar()"><i class="fas fa-trash"></i>&nbsp; Delete</button>
+                                    <button type="button" class="btn btn-sm btn-info ml-1" data-toggle="modal"data-target="#upload" onclick="showUploadFile(<?= $row->id_asett?>)"><i class="fas fa-upload"></i>&nbsp; Upload File</button>
+                                    <button type="button" class="btn btn-sm btn-success ml-1" data-toggle="modal"data-target="#edit" onclick="showAsetEdit(<?= $row->id_asett?>)"><i class="ni ni-ruler-pencil"></i>&nbsp; Edit</button>
+                                    <button type="button" class="btn btn-sm btn-danger ml-1" onclick="deleteSeminar()"><i class="fas fa-trash"></i>&nbsp; Delete</button>
                                 </td>
                             </tr>
 
@@ -390,4 +390,41 @@
         </div>
     </div>
 </div>
+
+<!-- Modal edit -->
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Form Edit Aset</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+                  <div id="data_edit"></div>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Form Upload File</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+                  <div id="data_upload"></div>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
 

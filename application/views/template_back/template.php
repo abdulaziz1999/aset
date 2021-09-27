@@ -376,11 +376,11 @@
             },
             dataType: "html",
             beforeSend: function() {
-                $('#data_edit').html("<img src='<?=base_url()?>assets/img/icons/loader.gif'>");
+                $('#data_upload').html("<img src='<?=base_url()?>assets/img/icons/loader.gif'>");
             },
             success: function(response) {
-                $('#data_edit').empty();
-                $('#data_edit').append(response);
+                $('#data_upload').empty();
+                $('#data_upload').append(response);
             }
         });
     }
@@ -388,7 +388,7 @@
     function deleteAset(id) {
         r = confirm("Anda Yakin Ingin Menghapus");
         if (r == true) {
-            window.location = "<?=site_url('user/delete/')?>" + id;
+            window.location = "<?=site_url('aset/delete/')?>" + id;
         } else {
             return false;
         }

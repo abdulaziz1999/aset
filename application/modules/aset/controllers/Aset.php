@@ -10,6 +10,7 @@ class Aset extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->load->library('upload');
         if($this->session->userdata('level') != "admin" || 
         $this->session->userdata('level') != "keuangan" || 
         $this->session->userdata('level') != "staff"){
@@ -26,159 +27,51 @@ class Aset extends CI_Controller
     }
 
     function dataEdit(){
-        $id = $this->input->post('id');
-        $this->db->join('tb_seminar sm','sm.id_seminar = s.seminar_id');
-        $dataSeminar = $this->db->get_where('tb_daftar_seminar s',['id_df_seminar' => $id])->row();
-        $dosen = $this->db->get('tb_dosen')->result();
-        $seminar = $this->db->get('tb_seminar')->result();
-        $prodi = $this->db->get('tb_prodi')->result();
-        ?>
-        <div class="card">
-                <div class="card-body">
-                  <form method="POST" action="<?= base_url('df_seminar/update/'.$id)?>">
-                        <!-- Input groups with icon -->
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                            <label class="form-control-label" for="exampleDatepicker">NIM</label>
-                              <div class="input-group input-group-merge">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                </div>
-                                <input class="form-control" name="nim" placeholder="NIM" value="<?= $dataSeminar->nim?>" type="text">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                            <label class="form-control-label" for="exampleDatepicker">Nama</label>
-                              <div class="input-group input-group-merge">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                </div>
-                                <input class="form-control" name="nama" placeholder="Nama" value="<?= $dataSeminar->nama?>" type="text">
-                              </div>
-                            </div>
-                          </div> 
-                          <div class="col-md-6">
-                            <div class="form-group">
-                            <label class="form-control-label" for="exampleDatepicker">Judul Tugas Akhir</label>
-                              <div class="input-group input-group-merge">
-                                <textarea class="form-control" name="judul_ta" placeholder="Judul Tugas Akhir" value="<?= $dataSeminar->judul_ta?>" id="" cols="30" rows="6"><?= $dataSeminar->judul_ta?></textarea>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label class="form-control-label" for="exampleDatepicker">Prodi</label>
-                              <div class="input-group input-group-merge">
-                                <select name="prodi_id" class="form-control">
-                                    <option disabled> --- Pilih Prodi --- </option>
-                                  <?php foreach($prodi as $row):?>
-                                    <option <?php $dataSeminar->prodi_id == $row->id_prodi ? 'selected' : ''?> value="<?=$row->id_prodi?>"><?= $row->nama_prodi?></option>
-                                  <?php endforeach;?>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                            <div class="form-group">
-                              <label class="form-control-label" for="exampleDatepicker">Seminar</label>
-                              <div class="input-group input-group-merge">
-                                <select name="seminar_id" class="form-control" >
-                                  <option disabled> --- Pilih Seminar --- </option>
-                                  <?php foreach($seminar as $row):?>
-                                    <option <?php $dataSeminar->seminar_id == $row->id_seminar ? 'selected' : ''?> value="<?=$row->id_seminar?>"><?= $row->nama_seminar?></option>
-                                  <?php endforeach;?>
-                                </select>
-                              </div>
-                            </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- Input groups with icon -->
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label class="form-control-label" for="exampleDatepicker">Tanggal Seminar</label>
-                              <div class="input-group input-group-merge">
-                              <input class="form-control" name="tgl_seminar" placeholder="Nama" value="<?= $dataSeminar->tgl_seminar?>" type="date">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                            <div class="form-group">
-                              <label class="form-control-label" for="exampleDatepicker">Pembimbing</label>
-                              <div class="input-group input-group-merge">
-                                <select name="pembimbing" class="form-control" >
-                                  <option disabled > --- Pilih Pembimbing --- </option>
-                                  <?php foreach($dosen as $row):?>
-                                    <option <?php $dataSeminar->pembimbing == $row->id_dosen ? 'selected' : ''?> value="<?=$row->id_dosen?>"><?= $row->nama_dosen?></option>
-                                  <?php endforeach;?>
-                                </select>
-                              </div>
-                            </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label class="form-control-label" for="exampleDatepicker">Jam Seminar</label>
-                              <div class="input-group input-group-merge">
-                              <input class="form-control" name="jam_seminar" placeholder="Nama" value="<?= $dataSeminar->jam_seminar?>" type="time">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                            <div class="form-group">
-                              <label class="form-control-label" for="exampleDatepicker">Penguji 1</label>
-                              <div class="input-group input-group-merge">
-                                <select class="form-control" name="penguji1" >
-                                <option disabled > --- Pilih Penguji 1 --- </option>
-                                  <?php foreach($dosen as $row):?>
-                                    <option <?php $dataSeminar->penguji1 == $row->id_dosen ? 'selected' : ''?> value="<?=$row->id_dosen?>"><?= $row->nama_dosen?></option>
-                                  <?php endforeach;?>
-                                </select>
-                              </div>
-                            </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label class="form-control-label" for="exampleDatepicker">Ruangan</label>
-                              <div class="input-group input-group-merge">
-                              <input class="form-control" name="ruang" placeholder="Ruangan" value="<?= $dataSeminar->ruang?>" type="text">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                            <div class="form-group">
-                              <label class="form-control-label" for="exampleDatepicker">Penguji 2</label>
-                              <div class="input-group input-group-merge">
-                                <select class="form-control" name="penguji2" >
-                                  <option disabled > --- Pilih Penguji 2 --- </option>
-                                  <?php foreach($dosen as $row):?>
-                                    <option <?php $dataSeminar->penguji2 == $row->id_dosen ? 'selected' : ''?> value="<?=$row->id_dosen?>"><?= $row->nama_dosen?></option>
-                                  <?php endforeach;?>
-                                </select>
-                              </div>
-                            </div>
-                            </div>
-                          </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-md">Update</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  </form>
-                </div>
-             </div>
-        <?php
+        $data['id'] = $this->input->post('id');
+        $data['aset'] = $this->db->get_where('tb_aset_tanah',['id_asett' => $data['id']])->row();
+        $data['batas'] = $this->db->get_where('tb_batas_tanah',['id_aset' => $data['id']])->row();
+        $this->load->view('formEditAset',$data);
+    }
+    
+    function dataUpload(){
+        $data['id'] = $this->input->post('id');
+        $this->load->view('formUpload',$data);
+    }
+
+    function uploadFile($id){
+          $config['upload_path'] 		= './assets/img/file/'; 
+          $config['allowed_types'] 		= 'gif|jpg|png|jpeg|bmp|pdf'; 
+          $config['encrypt_name'] 		= false;
+        
+          $this->upload->initialize($config);
+          if (!$this->upload->do_upload('file')){
+            $error = array('error' => $this->upload->display_errors());
+            // $this->session->set_flashdata('error', "File file Gagal Diupdate");
+            $data = array(
+                'aset_tanah_id' => $id,
+                'jenis_file'    => $this->input->post('jenis_file'),
+                'link_drive'    => $this->input->post('link'),
+              );
+              $this->db->insert('tb_file_aset',$data);
+            redirect($_SERVER['HTTP_REFERER']);
+          }else{
+            $gbr = $this->upload->data();
+            $data = array(
+              'nama_file'     => $gbr['file_name'],
+              'aset_tanah_id' => $id,
+              'jenis_file'    => $this->input->post('jenis_file'),
+              'link_drive'    => $this->input->post('link'),
+            );
+            $this->db->insert('tb_file_aset',$data);
+
+                if($this->db->affected_rows() > 0){
+                  $this->session->set_flashdata('sukses', "File file Berhasil Diupdate");
+                  redirect($_SERVER['HTTP_REFERER']);
+                }else{
+                  $this->session->set_flashdata('error', "File file Gagal Diupdate");
+                  redirect($_SERVER['HTTP_REFERER']);
+                }
+          }
     }
     
     function create(){      
