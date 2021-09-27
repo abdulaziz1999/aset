@@ -26,7 +26,7 @@
               <h1 class="text-center ">Login</h1>
             </div>
             <div class="card-body px-lg-5 py-lg-5">
-              <form role="form" method="POST" action="<?= site_url('login/cek_login')?>">
+              <form role="form" method="POST" action="<?= base_url('login/cek_login')?>">
                 <div class="form-group mb-3">
                   <div class="input-group input-group-merge input-group-alternative">
                     <div class="input-group-prepend">

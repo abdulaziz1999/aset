@@ -10,9 +10,12 @@ class Aset extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        if($this->session->userdata('level') != "admin"){
-          redirect('login');
-        }		
+        if($this->session->userdata('level') != "admin" || 
+        $this->session->userdata('level') != "keuangan" || 
+        $this->session->userdata('level') != "staff"){
+        }else{
+            redirect('login');
+        }	
     }
 
     public function index()
@@ -178,11 +181,15 @@ class Aset extends CI_Controller
         <?php
     }
     
-    function create(){
+    function create(){      
       $data = [
           'nm_pemilik'      => $this->input->post('nm_pemilik'),
           'pemilik_before'  => $this->input->post('pemilik_before'),
           'js_document'     => $this->input->post('js_document'),
+          'jd'              => $this->input->post('jd'),
+          'validasi_denah'  => $this->input->post('validasi_denah'),
+          'validasi_dokumen'=> $this->input->post('validasi_dokumen'),
+          // 'jd_awg'          => $this->input->post('jd_awg'),
           'no_surat'        => $this->input->post('no_surat'),
           'luas_tanah'      => $this->input->post('luas_tanah'),
           'thn_pembelian'   => $this->input->post('thn_pembelian'),
@@ -194,13 +201,20 @@ class Aset extends CI_Controller
           'no_kohir'        => $this->input->post('no_kohir'),
           'notaris_ppat'    => $this->input->post('notaris_ppat'),
           'no_sppt'         => $this->input->post('no_sppt'),
-          'u_kwitansi'      => $this->input->post('u_kwitansi'),
-          'u_shm'           => $this->input->post('u_shm'),
-          'up_sppt_pajak'   => $this->input->post('up_sppt_pajak'),
-          'u_ajb_doc_other' => $this->input->post('u_ajb_doc_other'),
           'status_pembelian'=> $this->input->post('status_pembelian'),
         ];
         $this->db->insert('tb_aset_tanah',$data);
+        $idlast = $this->db->insert_id();
+
+        $batasTanah = [
+          'bu'      => $this->input->post('bu'),
+          'bt'      => $this->input->post('bt'),
+          'bb'      => $this->input->post('bb'),
+          'bs'      => $this->input->post('bs'),
+          'id_aset' => $idlast
+        ];
+        $this->db->insert('tb_batas_tanah',$batasTanah);
+
         redirect($_SERVER['HTTP_REFERER']);
     }
 
@@ -233,158 +247,6 @@ class Aset extends CI_Controller
     function delete($id){
         $this->db->delete('tb_aset_tanah',['id_asett' => $id]);
         redirect($_SERVER['HTTP_REFERER']);
-    }
-
-    function viewPerserta($id){
-      $data['title']		      = "Daftar Peserta Seminar Tugas Akhir";
-                                $this->db->join('tb_prodi p','p.id_prodi = s.prodi_id');
-      $data['peserta']        = $this->db->get_where('tb_peserta_seminar s',['id_seminar' => $id])->result();
-      $data['prodi']          = $this->db->get('tb_prodi')->result();
-      $this->template->load('template_back/template','peserta_seminar',$data);
-      
-    }
-
-    function dataEditPeserta(){
-      $id = $this->input->post('id');
-      $this->db->join('tb_prodi p','p.id_prodi = s.prodi_id');
-      $peserta  = $this->db->select('s.*,p.nama_prodi')->get_where('tb_peserta_seminar s',['id_peserta' => $id])->row();
-      $prodi    = $this->db->get('tb_prodi')->result();
-      
-      ?>  
-            <div class="card">
-              <div class="card-body">
-                  <form method="POST" action="<?= base_url('df_seminar/updatePeserta/'.$peserta->id_peserta)?>">
-                        <!-- Input groups with icon -->
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-group">
-                            <label class="form-control-label" for="exampleDatepicker">NIM</label>
-                              <div class="input-group input-group-merge">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                </div>
-                                <input class="form-control" name="nim" placeholder="NIM" value="<?= $peserta->nim?>" type="number">
-                              </div>
-                            </div>
-                            
-                          </div> 
-                          <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="form-control-label" for="exampleDatepicker">Nama</label>
-                                <div class="input-group input-group-merge">
-                                    <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                    </div>
-                                    <input class="form-control" name="nama" placeholder="Nama" value="<?= $peserta->nama?>" type="text">
-                                </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label class="form-control-label" for="exampleDatepicker">Prodi</label>
-                              <div class="input-group input-group-merge">
-                                <select name="prodi_id" class="form-control">
-                                  <option disabled > --- Pilih Prodi --- </option>
-                                  <?php foreach($prodi as $row):?>
-                                    <option <?php $peserta->prodi_id == $row->id_prodi ? 'selected' : ''?> value="<?=$row->id_prodi?>"><?= $row->nama_prodi?></option>
-                                  <?php endforeach;?>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- Input groups with icon -->
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="customRadioInline5" name="program" <?= $peserta->program == 'D3' ? 'checked' : ''?> value="D3" class="custom-control-input">
-                                    <label class="custom-control-label" for="customRadioInline5">D3</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="customRadioInline6" name="program" <?= $peserta->program == 'S1 Reguler' ? 'checked' : ''?> value="S1 Reguler" class="custom-control-input">
-                                    <label class="custom-control-label" for="customRadioInline6">S1 Reguler</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="customRadioInline7" name="program" <?= $peserta->program == 'S1 Fast Trackt' ? 'checked' : ''?> value="S1 Fast Trackt" class="custom-control-input">
-                                    <label class="custom-control-label" for="customRadioInline7">S1 Fast Trackt</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="customRadioInline8" name="program" <?= $peserta->program == 'S2' ? 'checked' : ''?> value="S2" class="custom-control-input">
-                                    <label class="custom-control-label" for="customRadioInline8">S2</label>
-                                </div>
-                                <input type="hidden" name="id_seminar" value="<?= $peserta->id_seminar?>">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label class="form-control-label" for="exampleDatepicker">Status</label>
-                              <div class="input-group input-group-merge">
-                                <select name="status" class="form-control">
-                                  <option disabled> --- Pilih Status --- </option>
-                                  <?php  if($peserta->status == 'Diterima'):?>
-                                    <option value="Diterima" selected>Diterima</option>
-                                    <option value="Ditolak">Ditolak</option>
-                                    <option value="Menunggu Verifikasi">Menunggu Verifikasi</option>
-                                  <?php elseif($peserta->status == 'Ditolak'):?>
-                                    <option value="Diterima">Diterima</option>
-                                    <option value="Ditolak" selected>Ditolak</option>
-                                    <option value="Menunggu Verifikasi">Menunggu Verifikasi</option>
-                                  <?php elseif($peserta->status == 'Menunggu Verifikasi'):?>
-                                    <option value="Diterima">Diterima</option>
-                                    <option value="Ditolak">Ditolak</option>
-                                    <option value="Menunggu Verifikasi" selected>Menunggu Verifikasi</option>
-                                  <?php else:?>
-                                    <option value="Diterima">Diterima</option>
-                                    <option value="Ditolak">Ditolak</option>
-                                    <option value="Menunggu Verifikasi">Menunggu Verifikasi</option>
-                                  <?php endif;?>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-md">Update</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  </form>
-              </div>
-           </div>
-      <?php
-  }
-
-    function createPeserta(){
-      $data = [
-        'nim'           => $this->input->post('nim'),
-        'nama'          => $this->input->post('nama'),
-        'prodi_id'      => $this->input->post('prodi_id'),       
-        'program'       => $this->input->post('program'),       
-        'id_seminar'    => $this->input->post('id_seminar'),       
-        'status'        => $this->input->post('id_seminar'),       
-      ];
-      $this->db->insert('tb_peserta_seminar',$data);
-      redirect($_SERVER['HTTP_REFERER']);
-    }
-
-    function updatePeserta($id){
-      $data = [
-        'nim'           => $this->input->post('nim'),
-        'nama'          => $this->input->post('nama'),
-        'prodi_id'      => $this->input->post('prodi_id'),       
-        'program'       => $this->input->post('program'),       
-        'id_seminar'    => $this->input->post('id_seminar'),
-        'status'        => $this->input->post('id_seminar'),       
-      ];
-      $this->db->update('tb_peserta_seminar',$data,['id_peserta' => $id]);
-      redirect($_SERVER['HTTP_REFERER']);
-    }
-
-    function deletePeserta($id){
-      $this->db->delete('tb_peserta_seminar',['id_peserta' => $id]);
-      redirect($_SERVER['HTTP_REFERER']);
     }
 
     public function excel()

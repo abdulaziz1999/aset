@@ -9,8 +9,11 @@ class Aset_dep extends CI_Controller
     {
         parent::__construct();
         $this->load->library('upload');
-        if($this->session->userdata('level') != "admin"){
-          redirect('login');
+        if($this->session->userdata('level') != "admin" || 
+        $this->session->userdata('level') != "keuangan" || 
+        $this->session->userdata('level') != "staff"){
+        }else{
+            redirect('login');
         }		
     }
 

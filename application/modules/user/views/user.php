@@ -43,7 +43,7 @@
                       <td><?= $row->nama?></td>
                       <td><?= $row->email?></td>
                       <td><?= $row->level?></td>
-                      <td><?= $row->status == 'Y' ? '<span class="badge badge-success">active</span>' : '<span class="badge badge-danger">inactive</span>' ?></td>
+                      <td><?= $row->status == 'Y' ? '<span class="badge badge-lg badge-success">active</span>' : '<span class="badge badge-lg badge-danger">inactive</span>' ?></td>
                       <td>
                           <button type="button" class="btn btn-sm btn-info ml-1" data-toggle="modal" data-target="#edit" onclick="showUserEdit(<?= $row->id_user?>)"><i class="ni ni-ruler-pencil"></i>&nbsp; Edit</button>
                           <button type="button" class="btn btn-sm btn-danger ml-1" onclick="deleteUser(<?= $row->id_user?>)"><i class="fas fa-trash"></i>&nbsp; Delete</button>
@@ -82,7 +82,7 @@
                                 <div class="input-group-prepend">
                                   <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input class="form-control" name="nama" placeholder="Nama" type="text">
+                                <input class="form-control" name="nama" placeholder="Nama" type="text" required>
                               </div>
                             </div>
                           </div>
@@ -93,7 +93,7 @@
                                 <div class="input-group-prepend">
                                   <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input class="form-control" name="email" placeholder="Email" type="email">
+                                <input class="form-control" name="email" placeholder="Email" type="email" required>
                               </div>
                             </div>
                           </div>
@@ -101,10 +101,11 @@
                             <div class="form-group">
                               <label class="form-control-label" for="exampleDatepicker">Level</label>
                               <div class="input-group input-group-merge">
-                                <select name="level" class="form-control">
+                                <select name="level" class="form-control" required>
                                   <option disabled selected> --- Pilih Level --- </option>
-                                    <option value="mahasiswa">Mahasiswa</option>
-                                    <option value="admin">Admin</option>
+                                  <option value="admin">Admin</option>
+                                    <option value="keuangan">Keuangan</option>
+                                    <option value="staff">Staff</option>
                                 </select>
                               </div>
                             </div>
@@ -113,7 +114,7 @@
                             <div class="form-group">
                               <label class="form-control-label" for="exampleDatepicker">Status</label>
                               <div class="input-group input-group-merge">
-                                <select name="status" class="form-control">
+                                <select name="status" class="form-control" required>
                                   <option disabled selected> --- Pilih Status --- </option>
                                     <option value="N">inactive</option>
                                     <option value="Y">active</option>
@@ -121,21 +122,19 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-12">
                             <div class="form-group">
                             <label class="form-control-label" for="exampleDatepicker">Password</label>
                               <div class="input-group input-group-merge">
                                 <div class="input-group-prepend">
                                   <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input class="form-control" name="password" placeholder="Password" type="password">
+                                <input class="form-control" name="password" placeholder="Password" type="password" required>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div class="modal-footer mt--3">
                             <button type="submit" class="btn btn-block btn-primary btn-md">Daftar</button>
-                        </div>
                   </form>
                 </div>
              </div>
@@ -156,7 +155,7 @@
             </button>
           </div>
           <div class="modal-body">
-                  <div id="data_edit"></div>
+                  <div id="data_edit" class="text-center"></div>
           </div>
           <div class="modal-footer">
           </div>

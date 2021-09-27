@@ -35,7 +35,7 @@ class Login extends CI_Controller
                 redirect('dashboard');
             }else{
                 $this->session->set_flashdata('error', "gagal");
-                redirect(base_url('auth'));
+                redirect(base_url('login'));
             }
 
         } else{

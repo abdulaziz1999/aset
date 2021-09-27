@@ -9,7 +9,10 @@ class Dashboard extends CI_Controller
     function __construct()
     {
         parent::__construct();
-		if($this->session->userdata('level') != "admin"){
+		if($this->session->userdata('level') != "admin" || 
+        $this->session->userdata('level') != "keuangan" || 
+        $this->session->userdata('level') != "staff"){
+        }else{
             redirect('login');
         }
     }

@@ -27,45 +27,33 @@
             <div class="table-responsive py-4">
               <table class="table table-flush" id="datatable-buttons">
                 <thead class="thead-light">
-                  <tr>
+                  <tr class="text-center">
                     <th>No</th>
                     <th>Nama Aset</th>
-                    <!-- <th>Spek/Merk</th> -->
+                    <th>Spek/Merk</th>
                     <th>Tahun Pembelian</th>
                     <th>Harga Beli</th>
                     <th>Usia Depersiasi</th>
                     <th>Nilai Saat Ini</th>
                     <th>Lokasi/Unit Pengguna</th>
                     <th>Status Kepemilikan</th>
-                    <th>Upload Document Kepemilikan</th>
-                    <th>Upload Pajak</th>
-                    <th>Upload SPPT/Pajak</th>
                     <th>Kode Akutansi</th>
                     <th>ACT</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody class="text-center" >
                   <?php $no=1; foreach($aset as $row):?>
                     <tr>
                       <td><?= $no++?></td>
                       <td><?= $row->nm_aset?></td>
-                      <!-- <td><?= $row->spek_merk?></td> -->
+                      <td><?= $row->spek_merk?></td>
                       <td><?= $row->thn_pembelian?></td>
                       <td><?= $row->harga_beli?></td>
                       <td><?= $row->usia_depersiasi?></td>
                       <td><?= $row->nilai_now?></td>
                       <td><?= $row->lokasi_unit_user?></td>
                       <td><?= $row->status_kepemilikan?></td>
-                      <td><?= $row->u_kwitansi?></td>
-                      <td><?= $row->u_doc_milik?></td>
-                      <td><?= $row->u_pajak?></td>
                       <td><?= $row->kode_akutansi?></td>
-                    <!-- <td>
-                        <a href="" class="btn btn-sm btn-warning ml-1">
-                          <i class="fas fa-eye"></i>&nbsp;  <span>View</span>
-                          <span class="badge badge-md badge-circle badge-floating badge-danger border-white"></span>
-                        </a>
-                      </td> -->
                       <td>
                           <button type="button" class="btn btn-sm btn-success ml-1" data-toggle="modal" data-target="#edit" onclick="showDataEdit()"><i class="ni ni-ruler-pencil"></i>&nbsp; Edit</button>
                           <button type="button" class="btn btn-sm btn-danger ml-1" onclick="deleteSeminar()"><i class="fas fa-trash"></i>&nbsp; Delete</button>
