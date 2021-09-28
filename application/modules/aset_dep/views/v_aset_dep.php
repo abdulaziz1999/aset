@@ -6,7 +6,7 @@
               <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                   <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Aset</li>
+                  <li class="breadcrumb-item active" aria-current="page">Aset Depersiasi</li>
                 </ol>
               </nav>
             </div> 
@@ -55,8 +55,9 @@
                       <td><?= $row->status_kepemilikan?></td>
                       <td><?= $row->kode_akutansi?></td>
                       <td>
-                          <button type="button" class="btn btn-sm btn-success ml-1" data-toggle="modal" data-target="#edit" onclick="showDataEdit()"><i class="ni ni-ruler-pencil"></i>&nbsp; Edit</button>
-                          <button type="button" class="btn btn-sm btn-danger ml-1" onclick="deleteSeminar()"><i class="fas fa-trash"></i>&nbsp; Delete</button>
+                          <button type="button" class="btn btn-sm btn-info ml-1" data-toggle="modal"data-target="#upload" onclick="showUploadFile(<?= $row->id_aset_d?>)"><i class="fas fa-upload"></i>&nbsp; Upload File</button>
+                          <button type="button" class="btn btn-sm btn-success ml-1" data-toggle="modal" data-target="#edit" onclick="showEditAsetDep(<?= $row->id_aset_d?>)"><i class="ni ni-ruler-pencil"></i>&nbsp; Edit</button>
+                          <button type="button" class="btn btn-sm btn-danger ml-1" onclick="deleteAsetDep(<?= $row->id_aset_d?>)"><i class="fas fa-trash"></i>&nbsp; Delete</button>
                       </td>
                     </tr>
                   <?php endforeach;?>
@@ -84,7 +85,7 @@
                     <form method="POST" action="<?= base_url('aset_dep/create')?>" enctype="multipart/form-data">
                           <!-- Input groups with icon -->
                           <div class="row">
-                          <div class="col-md-6">
+                            <div class="col-md-6">
                               <div class="form-group">
                               <label class="form-control-label" for="exampleDatepicker">Nama Asset</label>
                                 <div class="input-group input-group-merge">
@@ -236,47 +237,18 @@
         </div>
       </div>
 
-      <div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <!-- Modal edit -->
+    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Form Edit Daftar Seminar Tugas Akhir</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Form Edit Aset Depersiasi</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-          <form action="<?= base_url('aset_dep/upload_file ')?>" method="post" enctype="multipart/form-data">
-            <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8">
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Upload Invoice</label>
-                                <input type="file" class="form-control" name="invoice" value="" id="masking1"
-                                    placeholder="Masukan Dana Yang di Ajukan" autocomplete="off" required>
-                            </div>
-                        </div>
-                        <div class="col-md-2"></div>
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <div class="row col-md-12">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-4">
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                            <button class="btn btn-danger" data-bs-dismiss="modal">Kembali</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button class="btn btn-primary" type="submit">Simpan</button>
-                        </div>
-                    </div>
-                    <div class="col-md-2"></div>
-                </div>
-            </div>
-        </form>
+                  <div id="data_edit"></div>
           </div>
           <div class="modal-footer">
           </div>
@@ -284,18 +256,17 @@
       </div>
     </div>
 
-    <!-- Modal edit -->
-    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Form Edit Daftar Seminar Tugas Akhir</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Form Upload File</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-                  <div id="data_edit"></div>
+                  <div id="data_upload"></div>
           </div>
           <div class="modal-footer">
           </div>

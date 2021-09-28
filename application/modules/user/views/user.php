@@ -45,6 +45,7 @@
                       <td><?= $row->level?></td>
                       <td><?= $row->status == 'Y' ? '<span class="badge badge-lg badge-success">active</span>' : '<span class="badge badge-lg badge-danger">inactive</span>' ?></td>
                       <td>
+                          <button type="button" class="btn btn-sm btn-warning ml-1" data-toggle="modal" data-target="#password" onclick=""><i class="ni ni-key-25"></i>&nbsp; Set Password</button>
                           <button type="button" class="btn btn-sm btn-info ml-1" data-toggle="modal" data-target="#edit" onclick="showUserEdit(<?= $row->id_user?>)"><i class="ni ni-ruler-pencil"></i>&nbsp; Edit</button>
                           <button type="button" class="btn btn-sm btn-danger ml-1" onclick="deleteUser(<?= $row->id_user?>)"><i class="fas fa-trash"></i>&nbsp; Delete</button>
                       </td>

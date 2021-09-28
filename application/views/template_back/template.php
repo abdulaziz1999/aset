@@ -81,36 +81,38 @@
                 <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                     <!-- Nav items -->
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link <?= $this->uri->segment(1) == 'dashboard' ? 'active' : ''?>"
-                                href="<?= base_url('dashboard')?>">
-                                <i class="ni ni-shop text-primary"></i>
-                                <span class="nav-link-text">Dashboards</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= $this->uri->segment(1) == 'aset' ? 'active' : ''?>"
-                                href="<?= base_url('aset')?>">
-                                <i class="ni ni-archive-2 text-green"></i>
-                                <span class="nav-link-text">Aset Tanah</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= $this->uri->segment(1) == 'aset_dep' ? 'active' : ''?>"
-                                href="<?= base_url('aset_dep')?>">
-                                <i class="ni ni-archive-2 text-green"></i>
-                                <span class="nav-link-text">Aset Depersiasi</span>
-                            </a>
-                        </li>
-                        <?php if($this->session->userdata('level') == 'admin'):?>
-                        <li class="nav-item">
-                            <a class="nav-link <?= $this->uri->segment(1) == 'user' ? 'active' : ''?>"
-                                href="<?= base_url('user')?>">
-                                <i class="ni ni-single-02 text-info"></i>
-                                <span class="nav-link-text">User</span>
-                            </a>
-                        </li>
-                        <?php endif;?>
+                        <?php $menu = $this->my_model->menu($this->session->userdata('level'))->result();
+                        foreach($menu as $row):?>
+                            <?php if($row->type == 'parent'):?>
+                            <li class="nav-item">
+                                <a class="nav-link <?= $this->uri->segment(1) == $row->segment ? 'active' : ''?>"
+                                    href="<?= base_url($row->segment)?>">
+                                    <?= $row->icon?>
+                                    <span class="nav-link-text"><?= $row->nama_menu?></span>
+                                </a>
+                            </li>
+                            <?php elseif($row->type == 'dropdown'):?>
+                            <li class="nav-item">
+                                <a class="nav-link <?= $this->uri->segment(1) == $row->segment ? 'active' : ''?>" href="#navbar-tables" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-tables">
+                                    <?= $row->icon?>
+                                    <span class="nav-link-text"><?= $row->nama_menu?></span>
+                                </a>
+                                <div class="collapse <?= $this->uri->segment(1) == $row->segment ? 'show' : ''?>" id="navbar-tables">
+                                    <ul class="nav nav-sm flex-column">
+                                    <?php $menuchild = $this->my_model->menuChild($this->session->userdata('level'),$row->id_menu)->result();
+                                        foreach($menuchild as $key):?>
+                                        <li class="nav-item">
+                                            <a href="<?= base_url($key->segment)?>" class="nav-link <?= $this->uri->segment(1) == $key->segment ? 'active' : ''?>">
+                                            <span class="sidenav-mini-icon"> T </span>
+                                            <span class="sidenav-normal"> <?= $key->nama_menu?> </span>
+                                            </a>
+                                        </li>
+                                        <?php endforeach;?>
+                                    </ul>
+                                </div>
+                            </li>
+                            <?php endif;?>
+                        <?php endforeach;?>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= base_url('login/logout')?>">
                                 <i class="ni ni-user-run text-red"></i>
@@ -118,37 +120,6 @@
                             </a>
                         </li>
                     </ul>
-                    <!-- Divider -->
-                    <!-- <hr class="my-3"> -->
-                    <!-- Heading -->
-                    <!-- <h6 class="navbar-heading p-0 text-muted">Documentation</h6> -->
-                    <!-- Navigation -->
-                    <!-- <ul class="navbar-nav mb-md-3">
-            <li class="nav-item">
-              <a class="nav-link" href="<?= base_url()?>docs/getting-started/overview.html" target="_blank">
-                <i class="ni ni-spaceship"></i>
-                <span class="nav-link-text">Getting started</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<?= base_url()?>docs/foundation/colors.html" target="_blank">
-                <i class="ni ni-palette"></i>
-                <span class="nav-link-text">Foundation</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<?= base_url()?>docs/components/alerts.html" target="_blank">
-                <i class="ni ni-ui-04"></i>
-                <span class="nav-link-text">Components</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<?= base_url()?>docs/plugins/charts.html" target="_blank">
-                <i class="ni ni-chart-pie-35"></i>
-                <span class="nav-link-text">Plugins</span>
-              </a>
-            </li>
-          </ul> -->
                 </div>
             </div>
         </div>
@@ -317,83 +288,133 @@
 
     <?php if($this->uri->segment(1) == 'user'):?>
     <script>
-    function showUserEdit(id) {
-        $.ajax({
-            url: "<?=site_url('user/dataEdit');?>",
-            type: "POST",
-            data: {
-                id: id
-            },
-            dataType: "html",
-            beforeSend: function() {
-                $('#data_edit').html("<img src='<?=base_url()?>assets/img/icons/loader.gif'>");
-            },
-            success: function(response) {
-                $('#data_edit').empty();
-                $('#data_edit').append(response);
-            }
-        });
-    }
-
-    function deleteUser(id) {
-        r = confirm("Anda Yakin Ingin Menghapus");
-        if (r == true) {
-            window.location = "<?=site_url('user/delete/')?>" + id;
-        } else {
-            return false;
+        function showUserEdit(id) {
+            $.ajax({
+                url: "<?=site_url('user/dataEdit');?>",
+                type: "POST",
+                data: {
+                    id: id
+                },
+                dataType: "html",
+                beforeSend: function() {
+                    $('#data_edit').html("<img src='<?=base_url()?>assets/img/icons/loader.gif'>");
+                },
+                success: function(response) {
+                    $('#data_edit').empty();
+                    $('#data_edit').append(response);
+                }
+            });
         }
 
-    }
-    </script>
+        function deleteUser(id) {
+            r = confirm("Anda Yakin Ingin Menghapus");
+            if (r == true) {
+                window.location = "<?=site_url('user/delete/')?>" + id;
+            } else {
+                return false;
+            }
+
+        }
+        </script>
     <?php endif;?>
 
     <?php if($this->uri->segment(1) == 'aset'):?>
     <script>
-    function showAsetEdit(id) {
-        $.ajax({
-            url: "<?=site_url('aset/dataEdit');?>",
-            type: "POST",
-            data: {
-                id: id
-            },
-            dataType: "html",
-            beforeSend: function() {
-                $('#data_edit').html("<img src='<?=base_url()?>assets/img/icons/loader.gif'>");
-            },
-            success: function(response) {
-                $('#data_edit').empty();
-                $('#data_edit').append(response);
-            }
-        });
-    }
-
-    function showUploadFile(id) {
-        $.ajax({
-            url: "<?=site_url('aset/dataUpload');?>",
-            type: "POST",
-            data: {
-                id: id
-            },
-            dataType: "html",
-            beforeSend: function() {
-                $('#data_upload').html("<img src='<?=base_url()?>assets/img/icons/loader.gif'>");
-            },
-            success: function(response) {
-                $('#data_upload').empty();
-                $('#data_upload').append(response);
-            }
-        });
-    }
-
-    function deleteAset(id) {
-        r = confirm("Anda Yakin Ingin Menghapus");
-        if (r == true) {
-            window.location = "<?=site_url('aset/delete/')?>" + id;
-        } else {
-            return false;
+        function showAsetEdit(id) {
+            $.ajax({
+                url: "<?=site_url('aset/dataEdit');?>",
+                type: "POST",
+                data: {
+                    id: id
+                },
+                dataType: "html",
+                beforeSend: function() {
+                    $('#data_edit').html("<img src='<?=base_url()?>assets/img/icons/loader.gif'>");
+                },
+                success: function(response) {
+                    $('#data_edit').empty();
+                    $('#data_edit').append(response);
+                }
+            });
         }
 
-    }
+        function showUploadFile(id) {
+            $.ajax({
+                url: "<?=site_url('aset/dataUpload');?>",
+                type: "POST",
+                data: {
+                    id: id
+                },
+                dataType: "html",
+                beforeSend: function() {
+                    $('#data_upload').html("<img src='<?=base_url()?>assets/img/icons/loader.gif'>");
+                },
+                success: function(response) {
+                    $('#data_upload').empty();
+                    $('#data_upload').append(response);
+                }
+            });
+        }
+
+        function deleteAset(id) {
+            r = confirm("Anda Yakin Ingin Menghapus");
+            if (r == true) {
+                window.location = "<?=site_url('aset/delete/')?>" + id;
+            } else {
+                return false;
+            }
+
+        }
+    </script>
+    <?php endif;?>
+
+    <?php if($this->uri->segment(1) == 'aset_dep'):?>
+    <script>
+        function showEditAsetDep(id) {
+            $.ajax({
+                url: "<?=site_url('aset_dep/dataEdit');?>",
+                type: "POST",
+                data: {
+                    id: id
+                },
+                dataType: "html",
+                beforeSend: function() {
+                    $('#data_edit').html("<img src='<?=base_url()?>assets/img/icons/loader.gif'>");
+                },
+                success: function(response) {
+                    $('#data_edit').empty();
+                    $('#data_edit').append(response);
+                }
+            });
+        }
+
+        function showUploadFile(id) {
+            $.ajax({
+                url: "<?=site_url('aset_dep/dataUpload');?>",
+                type: "POST",
+                data: {
+                    id: id
+                },
+                dataType: "html",
+                beforeSend: function() {
+                    $('#data_upload').html("<img src='<?=base_url()?>assets/img/icons/loader.gif'>");
+                },
+                success: function(response) {
+                    $('#data_upload').empty();
+                    $('#data_upload').append(response);
+                }
+            });
+        }
+
+        function deleteAsetDep(id) {
+            r = confirm("Anda Yakin Ingin Menghapus");
+            if (r == true) {
+                window.location = "<?=site_url('aset_dep/delete/')?>" + id;
+            } else {
+                return false;
+            }
+
+        }
     </script>
     <?php endif;?>
 

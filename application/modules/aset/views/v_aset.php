@@ -73,17 +73,17 @@
                                 <td><?= $row->pemilik_before?></td>
                                 <td><?= $row->js_document?></td>
                                 <td class="text-center">
-                                    <div class="custom-control custom-checkbox">
+                                    <div class="custom-control custom-checkbox custom-checkbox-success">
                                         <input type="checkbox" <?= $row->validasi_denah == 1 ? 'checked' : ''?>
-                                            class="custom-control-input" id="customCheck1">
-                                        <label class="custom-control-label" for="customCheck1"></label>
+                                            class="custom-control-input" id="customCheck<?= $row->id_asett+2?>">
+                                        <label class="custom-control-label" for="customCheck<?= $row->id_asett+2?>"></label>
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="custom-control custom-checkbox">
+                                    <div class="custom-control custom-checkbox custom-checkbox-success">
                                         <input type="checkbox" <?= $row->validasi_dokumen == 1 ? 'checked' : ''?>
-                                            class="custom-control-input" id="customCheck2">
-                                        <label class="custom-control-label" for="customCheck2"></label>
+                                            class="custom-control-input" id="customCheck<?= $row->id_asett+4?>">
+                                        <label class="custom-control-label" for="customCheck<?= $row->id_asett+4?>"></label>
                                     </div>
                                 </td>
                                 <td><?= $row->no_surat?></td>
@@ -97,7 +97,8 @@
                                 <td><?= $row->no_kohir?></td>
                                 <td><?= $row->notaris_ppat?></td>
                                 <td><?= $row->no_sppt?></td>
-                                <td><?= $row->status_pembelian == 'Lunas' ? '<span class="badge badge-lg badge-success">Lunas</span>' : '<span class="badge badge-lg badge-danger">Belum</span>' ?>
+                                <td>
+                                    <?= $row->status_pembelian == 'Lunas' ? '<span class="badge badge-lg badge-success">Lunas</span>' : '<span class="badge badge-lg badge-danger">Belum</span>' ?>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-sm btn-info ml-1" data-toggle="modal"data-target="#upload" onclick="showUploadFile(<?= $row->id_asett?>)"><i class="fas fa-upload"></i>&nbsp; Upload File</button>

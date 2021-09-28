@@ -11,12 +11,10 @@ class Aset extends CI_Controller
     {
         parent::__construct();
         $this->load->library('upload');
-        if($this->session->userdata('level') != "admin" || 
-        $this->session->userdata('level') != "keuangan" || 
-        $this->session->userdata('level') != "staff"){
+        if($this->session->userdata('level')){
         }else{
-            redirect('login');
-        }	
+          redirect('login');
+        }		
     }
 
     public function index()
