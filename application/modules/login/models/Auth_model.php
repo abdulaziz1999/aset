@@ -4,7 +4,11 @@ Class Auth_model extends CI_Model{
 
     function pasUser($u){
       $data = $this->db->get_where('tb_user',['email' => $u])->row()->password;
-      return $data;
+      if($data){
+        return $data;
+      }else{
+        redirect('login');
+      }
     }
 
     function userResult($u){
@@ -15,6 +19,11 @@ Class Auth_model extends CI_Model{
     function nama_user($u){
       $data = $this->db->get_where('tb_user',['email' => $u])->row()->nama;
       return $data;
+      if($data){
+        return $data;
+      }else{
+        redirect('login');
+      }
     }
 
 }
