@@ -16,10 +16,10 @@ class Login extends CI_Controller
     function cek_login(){
         $u 		= $this->input->post('email');
         $p 		= $this->input->post('password');
-        $nama   = $this->Auth_model->nama_user($u);
         $dbpas 	= $this->Auth_model->pasUser($u);
         $cek 	= password_verify($p,$dbpas); 
         if ($cek){
+                $nama = $this->Auth_model->nama_user($u);
                 $cek1 = $this->Auth_model->userResult($u);
                 foreach ($cek1 as $row) {
                     $this->session->set_userdata('id_user',$row->id_user);
