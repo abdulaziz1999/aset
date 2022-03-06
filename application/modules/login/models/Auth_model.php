@@ -7,6 +7,7 @@ Class Auth_model extends CI_Model{
       if($data){
         return $data;
       }else{
+        $this->session->set_flashdata('error', "gagal");
         redirect(base_url('login'));
       }
     }
