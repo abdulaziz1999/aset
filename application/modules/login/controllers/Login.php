@@ -16,7 +16,7 @@ class Login extends CI_Controller
     function cek_login(){
         $u 		= $this->input->post('email');
         $p 		= $this->input->post('password');
-        $dbpas = $this->Auth_model->pasUser($u);
+        $dbpas  = $this->Auth_model->pasUser($u);
         $cek 	= password_verify($p,$dbpas); 
         if ($cek){
                 $nama = $this->Auth_model->nama_user($u);
@@ -33,13 +33,16 @@ class Login extends CI_Controller
             }elseif($this->session->userdata('level') == 'staff'){
 				$this->session->set_flashdata('sukses', "Selamat Datang $nama !!!");
                 redirect('dashboard');
+            }elseif($this->session->userdata('level') == 'keuangan'){
+				$this->session->set_flashdata('sukses', "Selamat Datang $nama !!!");
+                redirect('dashboard');
             }else{
                 $this->session->set_flashdata('error', "gagal");
                 redirect(base_url('login'));
             }
 
         } else{
-            $this->session->set_flashdata('error', "gagal");
+            $this->session->set_flashdata('error1', "gagal");
 			redirect($_SERVER['HTTP_REFERER']);
         } 
 	}
