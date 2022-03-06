@@ -62,7 +62,7 @@ class User extends CI_Controller
 
     public function setPswd($id){
       $x = [
-        'cost' => 9
+        'cost' => 10
       ];
       $data = [
         'password'      => password_hash($this->input->post('password'),PASSWORD_DEFAULT,$x)
