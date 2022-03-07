@@ -42,4 +42,9 @@ Class My_model extends CI_Model{
         }
     }
 
+    function _batasTanah($id){
+        $data = $this->db->get_where('tb_batas_tanah',['id_batas' => $id])->row();
+        return "$data->bu,$data->bt,$data->bb,$data->bs";
+    }
+
 }
