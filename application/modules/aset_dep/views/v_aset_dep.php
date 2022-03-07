@@ -50,7 +50,7 @@
                       <td><?= $row->thn_pembelian?></td>
                       <td><?= $row->harga_beli?></td>
                       <td><?= $row->usia_depersiasi?></td>
-                      <td><?= $row->nilai_now?></td>
+                      <td><?= $row->nilai_now?></td>  <!-- harga beli - (thn now - thn beli / Usia depersiasi X harga beli)  -->
                       <td><?= $row->lokasi_unit_user?></td>
                       <td><?= $row->status_kepemilikan?></td>
                       <td><?= $row->kode_akutansi?></td>
