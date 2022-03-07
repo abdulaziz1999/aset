@@ -78,15 +78,13 @@ class Aset extends CI_Controller
           'pemilik_before'  => $this->input->post('pemilik_before'),
           'js_document'     => $this->input->post('js_document'),
           'jd'              => $this->input->post('jd'),
-          'validasi_denah'  => $this->input->post('validasi_denah'),
-          'validasi_dokumen'=> $this->input->post('validasi_dokumen'),
-          // 'jd_awg'          => $this->input->post('jd_awg'),
+          'validasi_denah'  => $this->input->post('validasi_denah') ? $this->input->post('validasi_denah') : 0,
+          'validasi_dokumen'=> $this->input->post('validasi_dokumen') ? $this->input->post('validasi_dokumen') : 0,
           'no_surat'        => $this->input->post('no_surat'),
           'luas_tanah'      => $this->input->post('luas_tanah'),
           'thn_pembelian'   => $this->input->post('thn_pembelian'),
           'harga_pembelian' => $this->input->post('harga_pembelian'),
           'lokasi'          => $this->input->post('lokasi'),
-          'batas_tanah'     => $this->input->post('batas_tanah'),
           'nib'             => $this->input->post('nib'),
           'no_persil'       => $this->input->post('no_persil'),
           'no_kohir'        => $this->input->post('no_kohir'),
@@ -105,6 +103,12 @@ class Aset extends CI_Controller
           'id_aset' => $idlast
         ];
         $this->db->insert('tb_batas_tanah',$batasTanah);
+        $idbts = $this->db->insert_id();
+
+        $idbstanah = [
+          'batas_tanah' => $idbts
+        ];
+        $this->db->update('tb_aset_tanah',$idbstanah,['id_asett' => $idlast]);
 
         redirect($_SERVER['HTTP_REFERER']);
     }
@@ -119,7 +123,6 @@ class Aset extends CI_Controller
           'thn_pembelian'   => $this->input->post('thn_pembelian'),
           'harga_pembelian' => $this->input->post('harga_pembelian'),
           'lokasi'          => $this->input->post('lokasi'),
-          'batas_tanah'     => $this->input->post('batas_tanah'),
           'nib'             => $this->input->post('nib'),
           'no_persil'       => $this->input->post('no_persil'),
           'no_kohir'        => $this->input->post('no_kohir'),
@@ -132,11 +135,21 @@ class Aset extends CI_Controller
           'status_pembelian'=> $this->input->post('status_pembelian'),
         ];
         $this->db->update('tb_aset_tanah',$data,['id_asett' => $id]);
+
+        $batasTanah = [
+          'bu'      => $this->input->post('bu'),
+          'bt'      => $this->input->post('bt'),
+          'bb'      => $this->input->post('bb'),
+          'bs'      => $this->input->post('bs'),
+        ];
+        $this->db->update('tb_batas_tanah',$batasTanah,['id_aset' => $id]);
+
         redirect($_SERVER['HTTP_REFERER']);
     }
 
     function delete($id){
         $this->db->delete('tb_aset_tanah',['id_asett' => $id]);
+        $this->db->delete('tb_batas_tanah',['id_aset' => $id]);
         redirect($_SERVER['HTTP_REFERER']);
     }
 
