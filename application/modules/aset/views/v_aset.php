@@ -75,15 +75,15 @@
                                 <td class="text-center">
                                     <div class="custom-control custom-checkbox custom-checkbox-success">
                                         <input type="checkbox" <?= $row->validasi_denah == 1 ? 'checked' : ''?>
-                                            class="custom-control-input" id="customCheck<?= $row->id_asett+2?>">
-                                        <label class="custom-control-label" for="customCheck<?= $row->id_asett+2?>"></label>
+                                            class="custom-control-input" id="customCheckVde<?= $row->id_asett?>">
+                                        <label class="custom-control-label" for="customCheckVde<?= $row->id_asett?>"></label>
                                     </div>
                                 </td>
                                 <td class="text-center">
                                     <div class="custom-control custom-checkbox custom-checkbox-success">
                                         <input type="checkbox" <?= $row->validasi_dokumen == 1 ? 'checked' : ''?>
-                                            class="custom-control-input" id="customCheck<?= $row->id_asett+4?>">
-                                        <label class="custom-control-label" for="customCheck<?= $row->id_asett+4?>"></label>
+                                            class="custom-control-input" id="customCheckVdo<?= $row->id_asett?>">
+                                        <label class="custom-control-label" for="customCheckVdo<?= $row->id_asett?>"></label>
                                     </div>
                                 </td>
                                 <td><?= $row->no_surat?></td>
@@ -91,7 +91,8 @@
                                 <td><?= $row->thn_pembelian?></td>
                                 <td><?= $row->harga_pembelian?></td>
                                 <td><?= $row->lokasi?></td>
-                                <td><?= $row->batas_tanah?></td>
+                                <td> <button type="button" class="btn btn-sm btn-warning ml-1" data-toggle="modal"data-target="#edit" ><i class="ni ni-ruler-pencil"></i>&nbsp; Details</button>
+                                <?php //$this->my_model->_batasTanah($row->batas_tanah)?></td>
                                 <td><?= $row->nib?></td>
                                 <td><?= $row->no_persil?></td>
                                 <td><?= $row->no_kohir?></td>
@@ -223,7 +224,7 @@
                                                 $thn_skr = date('Y');
                                                 for ($x = $thn_skr; $x >= 1900; $x--) {
                                                 ?>
-                                                    <option value="<?php echo $x ?>"><?php echo $x ?></option>
+                                                    <option value="<?= $x ?>"><?= $x ?></option>
                                                     <?php
                                                 }
                                                 ?>
