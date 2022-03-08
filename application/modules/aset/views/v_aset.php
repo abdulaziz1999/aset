@@ -94,7 +94,7 @@
                                 <td> 
                                     <!-- <button type="button" class="btn btn-sm btn-warning ml-1" data-toggle="modal"data-target="#edit" ><i class="ni ni-ruler-pencil"></i>&nbsp; Details</button> -->
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Warning</button>
+                                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Details</button>
                                         <div class="dropdown-menu">
                                         <a class="dropdown-item" href="#">BU : <?= $this->my_model->_batasTanah($row->batas_tanah)->bu?></a>
                                         <a class="dropdown-item" href="#">BB : <?= $this->my_model->_batasTanah($row->batas_tanah)->bb?></a>
