@@ -219,6 +219,26 @@ class Aset extends CI_Controller
         exit();
     }
 
+    function vDenah(){
+      $id = $this->input->post('id');
+      $idaset = $this->input->post('idaset');
+      if($id == '1'){
+        $this->db->update('tb_aset_tanah',['validasi_denah' => '0'],['id_asett' => $idaset]);
+      }else{
+        $this->db->update('tb_aset_tanah',['validasi_denah' => '1'],['id_asett' => $idaset]);
+      }
+    }
+
+    function vDokumen(){
+      $id = $this->input->post('id');
+      $idaset = $this->input->post('idaset');
+      if($id == '1'){
+        $this->db->update('tb_aset_tanah',['validasi_dokumen' => '0'],['id_asett' => $idaset]);
+      }else{
+        $this->db->update('tb_aset_tanah',['validasi_dokumen' => '1'],['id_asett' => $idaset]);
+      }
+    }
+
 
 }
 
