@@ -74,14 +74,14 @@
                                 <td><?= $row->js_document?></td>
                                 <td class="text-center">
                                     <div class="custom-control custom-checkbox custom-checkbox-success">
-                                        <input type="checkbox" <?= $row->validasi_denah == 1 ? 'checked' : ''?>
+                                        <input type="checkbox" onclick="vDenah(<?=$row->validasi_denah?>,<?= $row->id_asett?>)" <?= $row->validasi_denah == 1 ? 'checked' : ''?>
                                             class="custom-control-input" id="customCheckVde<?= $row->id_asett?>">
                                         <label class="custom-control-label" for="customCheckVde<?= $row->id_asett?>"></label>
                                     </div>
                                 </td>
                                 <td class="text-center">
                                     <div class="custom-control custom-checkbox custom-checkbox-success">
-                                        <input type="checkbox" <?= $row->validasi_dokumen == 1 ? 'checked' : ''?>
+                                        <input type="checkbox" onchange="vDocument(<?=$row->validasi_dokumen?>,<?= $row->id_asett?>)" <?= $row->validasi_dokumen == 1 ? 'checked' : ''?>
                                             class="custom-control-input" id="customCheckVdo<?= $row->id_asett?>">
                                         <label class="custom-control-label" for="customCheckVdo<?= $row->id_asett?>"></label>
                                     </div>
@@ -92,7 +92,6 @@
                                 <td><?= $row->harga_pembelian?></td>
                                 <td><?= $row->lokasi?></td>
                                 <td> 
-                                    <!-- <button type="button" class="btn btn-sm btn-warning ml-1" data-toggle="modal"data-target="#edit" ><i class="ni ni-ruler-pencil"></i>&nbsp; Details</button> -->
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Details</button>
                                         <div class="dropdown-menu">
