@@ -356,6 +356,28 @@
             });
         }
 
+        function vDenah(id,idaset){
+            $.ajax({
+                url: "<?=site_url('aset/vDenah');?>",
+                type: "POST",
+                data: {
+                    id: id,
+                    idaset:idaset
+                }
+            });
+        }
+
+        function vDocument(id,idaset){
+            $.ajax({
+                url: "<?=site_url('aset/vDokumen');?>",
+                type: "POST",
+                data: {
+                    id: id,
+                    idaset:idaset
+                }
+            });
+        }
+
         function deleteAset(id) {
             r = confirm("Anda Yakin Ingin Menghapus");
             if (r == true) {
