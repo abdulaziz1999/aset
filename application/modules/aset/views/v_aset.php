@@ -95,10 +95,11 @@
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Details</button>
                                         <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">BU : <?= $this->my_model->_batasTanah($row->batas_tanah)->bu?></a>
-                                        <a class="dropdown-item" href="#">BB : <?= $this->my_model->_batasTanah($row->batas_tanah)->bb?></a>
-                                        <a class="dropdown-item" href="#">BT : <?= $this->my_model->_batasTanah($row->batas_tanah)->bt?></a>
-                                        <a class="dropdown-item" href="#">BS : <?= $this->my_model->_batasTanah($row->batas_tanah)->bs?></a>
+                                            <a class="dropdown-item" href="#">BU : <?= $this->my_model->_batasTanah($row->batas_tanah)->bu?></a>
+                                            <a class="dropdown-item" href="#">BB : <?= $this->my_model->_batasTanah($row->batas_tanah)->bb?></a>
+                                            <a class="dropdown-item" href="#">BT : <?= $this->my_model->_batasTanah($row->batas_tanah)->bt?></a>
+                                            <a class="dropdown-item" href="#">BS : <?= $this->my_model->_batasTanah($row->batas_tanah)->bs?></a>
+                                        </div>
                                     </div>
                                 </td>
                                 <td><?= $row->nib?></td>
@@ -110,6 +111,21 @@
                                     <?= $row->status_pembelian == 'Lunas' ? '<span class="badge badge-lg badge-success">Lunas</span>' : '<span class="badge badge-lg badge-danger">Belum</span>' ?>
                                 </td>
                                 <td>
+                                    <div class="btn-group">
+                                        <?php $data = $this->db->get_where('tb_file_aset',['aset_tanah_id' => $row->id_asett]);?>
+                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Files <span class="badge badge-success"><?= $data->num_rows()?></span></button>
+                                        <div class="dropdown-menu">
+                                            <?php foreach($data->result() as $key):?>
+                                                <?php if($key->link_drive):?>
+                                                    <a class="dropdown-item" target="_blank" href="<?=$key->link_drive?>"><?= $key->jenis_file?></a>
+                                                <?php elseif($key->nama_file):?>
+                                                    <a class="dropdown-item" target="_blank" href="<?= base_url().'assets/img/file/'.$key->nama_file?>"><?= $key->jenis_file?></a>
+                                                <?php else:?>
+                                                    <a href="#">Tidak Ada File</a>
+                                                <?php endif;?>
+                                            <?php endforeach;?>
+                                        </div>
+                                    </div>
                                     <button type="button" class="btn btn-sm btn-info ml-1" data-toggle="modal"data-target="#upload" onclick="showUploadFile(<?= $row->id_asett?>)"><i class="fas fa-upload"></i>&nbsp; Upload File</button>
                                     <button type="button" class="btn btn-sm btn-success ml-1" data-toggle="modal"data-target="#edit" onclick="showAsetEdit(<?= $row->id_asett?>)"><i class="ni ni-ruler-pencil"></i>&nbsp; Edit</button>
                                     <button type="button" class="btn btn-sm btn-danger ml-1" onclick="deleteSeminar()"><i class="fas fa-trash"></i>&nbsp; Delete</button>
